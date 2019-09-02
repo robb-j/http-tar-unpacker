@@ -1,0 +1,11 @@
+#
+# Ignore files from docker
+#
+
+node_modules
+coverage
+*.env
+.DS_Store
+
+tmp
+output
