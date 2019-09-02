@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+# Requires 'jq' is installed
+
+set -e
+
+VERSION=`cat package.json | jq -r .version`
+IMAGE=openlab/http-tar-unpacker:$VERSION
+
+docker build -t $IMAGE .
+docker push $IMAGE

@@ -12,6 +12,7 @@
     "lint": "eslint src",
     "prettier": "prettier --write '**/*.{js,json,css,md,ts,tsx}'",
     "preversion": "npm run test -s",
+    "postversion": "bin/release",
     "start": "node -r dotenv/config src/index.js",
     "test": "jest"
   },
