@@ -28,6 +28,8 @@ eleventy && rsync -azv --delete dist/* root@example.com:/srv/static/my-site
 - Its a manual process that has to be run
 - You have to have use a unix user on a system
 
+---
+
 ## Example .gitlab-ci.yml
 
 ```yml
@@ -42,8 +44,8 @@ build-and-deploy:
   only:
     - master
   script:
-    - apk add --no-cache -s curl
-    - npm run ci
+    - apk add --no-cache -q curl
+    - npm ci
     - npm run build
     - tar -zcvf archive.tar.gz -C _site .
     - 'curl --silent --header "authorization: Bearer $DEPLOY_KEY" --form archive=@archive.tar.gz $DEPLOY_URL'
