@@ -2,15 +2,16 @@
 FROM node:12-alpine
 WORKDIR /app
 EXPOSE 3000
+ENV NODE_ENV production
+ENV WORK_DIR /app/output
 
 COPY package*.json /app/
-ENV NODE_ENV production
+RUN mkdir src dist && chown -R node:node .
+USER node
 RUN npm ci > /dev/null
 
 VOLUME /app/output
-RUN mkdir -p /app/tmp
 
-ENV DESTINATION_DIR /app/output
-COPY src /app/src
+COPY --chown=node:node src /app/src
 
 CMD [ "node", "src/index.js" ]
