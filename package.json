@@ -14,7 +14,8 @@
     "preversion": "npm run test -s",
     "postversion": "bin/release",
     "start": "node -r dotenv/config src/index.js",
-    "test": "jest"
+    "test": "jest",
+    "gen-readme-toc": "md-toc -i"
   },
   "keywords": [],
   "engines": {
@@ -29,6 +30,7 @@
     "valid-env": "^1.0.1"
   },
   "devDependencies": {
+    "@robb_j/md-toc": "^0.3.1",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-config-standard": "^14.1.1",
