@@ -24,7 +24,7 @@ Designed for doing a jamstack yourself.
 ## What is this?
 
 The idea behind this project is to create a docker image that bridges the gap
-between DevOps and static site generator.
+between DevOps and static site generators.
 For example:
 
 - You want to push to a master branch an it automatically builds and deploys generated assets
@@ -34,22 +34,21 @@ For example:
 ## How it works
 
 Unpacker runs an express server which has a pre-shared key and a volume to work in.
-You post an archive file to it, authenticated with the pre-shared key.
-The server unpacks the archive into its volume, making a new folder by hasing (sha256) the archive contents.
-It then updates the `current` symlink to point to the new folder.
+You post it an archive, authenticated with the pre-shared key.
+The server unpacks the archive in its volume, making a new folder by hashing the archive itself.
+It then updates a `current` symlink to point to the new folder.
 
 You have another container (link nginx) that mounts the same volume in
 and is setup to serve the content that is in `current` symlink.
 
+Once deployed, unpacker also cleans up its volume to remove any non-latest archives.
+
 > The symlink is to reduce the downtime when a build is happening
 > and means that it falls back to the previous "current" if something fails along the way.
-
-Once deployed, unpacker also cleans up its volume to remove any non-latest archives.
 
 ## Usage
 
 You run unpacker using the docker image, providing it with the pre-shared key and volume to work in.
-For example:
 
 **environment variables**
 
@@ -58,7 +57,7 @@ For example:
 
 **volumes**
 
-- `/app/workdir` - share this volume between your http server (i.e. nginx)
+- `/app/workdir` - share this volume between your http container (e.g. nginx)
 
 So if it is deployed at `DEPLOY_URL` with a preshared key `DEPLOY_KEY`, you can setup a CI/CD to:
 
@@ -107,10 +106,10 @@ These are the commands you'll regularly run to develop the API, in no particular
 # Run the api in development mode
 # -> Uses nodemon to restart on code changes
 # -> Runs on port 3000
-# -> uses 'workdir' to put archives into
+# -> Creates a 'workdir' folder to put archives into
 npm run dev
 
-# Load .env into the local shell
+# Load .env into the local shell (useful for below)
 source .env
 
 # Test the post endpoint  with the test archive
@@ -161,7 +160,7 @@ There is an npm `postversion` script setup to build the docker image
 locally and push it up to dockerhub.
 
 This means docker images should be [semantically versioned](https://semver.org/) and tagged in git.
-The `:latest` docker tag is not used.
+The `:latest` tag is not used.
 
 ```bash
 # Deploy a new version of the CLI
