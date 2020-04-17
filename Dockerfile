@@ -2,15 +2,16 @@
 FROM node:12-alpine
 WORKDIR /app
 EXPOSE 3000
+
 ENV NODE_ENV production
-ENV WORK_DIR /app/output
+ENV WORK_DIR /app/workdir
 
-COPY package*.json /app/
-RUN mkdir src dist && chown -R node:node .
+RUN mkdir src workdir && chown -R node:node .
 USER node
-RUN npm ci > /dev/null
+VOLUME /app/workdir
 
-VOLUME /app/output
+COPY --chown=node:node package*.json /app/
+RUN npm ci && npm cache clean --force
 
 COPY --chown=node:node src /app/src
 
