@@ -22,7 +22,7 @@ const {
   WORK_DIR,
   SECRET_KEY,
   INDEX_MESSAGE = 'Hello, world!',
-  MAX_UPLOAD = '64mb'
+  MAX_UPLOAD = '64mb',
 } = process.env
 
 //
@@ -50,7 +50,7 @@ async function shutdown(server, error) {
     console.error('error:', error)
   }
 
-  server.close(error => {
+  server.close((error) => {
     if (error) {
       console.error('error:', error)
       process.exitCode = 1
@@ -86,7 +86,7 @@ function hash(buffer) {
     app.use(
       express.raw({
         limit: MAX_UPLOAD,
-        type: 'application/gzip'
+        type: 'application/gzip',
       })
     )
 
@@ -98,9 +98,9 @@ function hash(buffer) {
       res.send({
         pkg: {
           name: pkg.name,
-          version: pkg.version
+          version: pkg.version,
         },
-        message: INDEX_MESSAGE || 'Hello, world!'
+        message: INDEX_MESSAGE || 'Hello, world!',
       })
     })
 
@@ -143,7 +143,7 @@ function hash(buffer) {
           // Extract the archive
           await tar.x({
             file: archivePath,
-            cwd: targetPath
+            cwd: targetPath,
           })
 
           // Remove the archive file
@@ -169,12 +169,12 @@ function hash(buffer) {
         //
         const contents = await fse.readdir(WORK_DIR)
         const toKeep = ['current', hashName]
-        const toRemove = contents.filter(item => !toKeep.includes(item))
+        const toRemove = contents.filter((item) => !toKeep.includes(item))
         debug(`contents=${contents.join(',') || '[]'}`)
         debug(`toRemove=${toRemove.join(',') || '[]'}`)
 
         await Promise.all(
-          toRemove.map(path =>
+          toRemove.map((path) =>
             fse.rmdir(join(WORK_DIR, path), { recursive: true })
           )
         )
@@ -199,13 +199,13 @@ function hash(buffer) {
     //
     // Start the server
     //
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       const server = app.listen(3000, resolve)
 
       process.on('SIGINT', () => shutdown(server))
       process.on('SIGTERM', () => shutdown(server))
-      process.on('uncaughtException', err => shutdown(server, err))
-      process.on('unhandledRejection', err => shutdown(server, err))
+      process.on('uncaughtException', (err) => shutdown(server, err))
+      process.on('unhandledRejection', (err) => shutdown(server, err))
     })
     console.log('Listening on :3000')
   } catch (error) {
