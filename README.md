@@ -46,6 +46,61 @@ Once deployed, unpacker also cleans up its volume to remove any non-latest archi
 > The symlink is to reduce the downtime when a build is happening
 > and means that it falls back to the previous "current" if something fails along the way.
 
+<details>
+<summary>More details</summary>
+
+Say the server has the following working volume:
+
+```
+workdir
+├── current -> abcdefgh
+└── abcdefgh
+    └── ...
+```
+
+You post up a new archive which has the hash `zxywvuts`.
+It uploads the archive into its own folder, so it becomes:
+
+> To generate the hash it base64-encodes the raw archive binary
+> creates a sha256 hash from it and encodes the result as hex.
+
+```diff
+ workdir
+ ├── current -> abcdefgh
+ ├── abcdefgh
+ │   └── ...
++└── zxywvuts
++    └── archive.tar.gz/
+```
+
+Then it expands the archive into that folder,
+remove the archive
+and updates the `current` symlink:
+
+```diff
+ workdir
+-├── current -> abcdefgh
++├── current -> zxywvuts
+ └── abcdefgh
+ │   └── ...
+ └── zxywvuts
+-    └── archive.tar.gz/
+     └── ...
+```
+
+Once it's all done it removes the old folder
+
+```diff
+ workdir
+ ├── current -> zxywvuts
+-├── abcdefgh
+-│   └── ...
+ └── zxywvuts
+     └── ...
+```
+
+</details>
+
 ## Usage
 
 You run unpacker using the docker image, providing it with the pre-shared key and volume to work in.
@@ -58,6 +113,8 @@ You run unpacker using the docker image, providing it with the pre-shared key an
 **volumes**
 
 - `/app/workdir` - share this volume between your http container (e.g. nginx)
+  - **important** You must mount the containing folder,
+    the symlink wont work if you just mount that.
 
 So if it is deployed at `DEPLOY_URL` with a preshared key `DEPLOY_KEY`, you can setup a CI/CD to:
 
