@@ -170,8 +170,8 @@ function hash(buffer) {
         const contents = await fse.readdir(WORK_DIR)
         const toKeep = ['current', hashName]
         const toRemove = contents.filter((item) => !toKeep.includes(item))
-        debug(`contents=${contents.join(',') || '[]'}`)
-        debug(`toRemove=${toRemove.join(',') || '[]'}`)
+        debug(`contents=[${contents.join(',')}]`)
+        debug(`toRemove=[${toRemove.join(',')}]`)
 
         await Promise.all(
           toRemove.map((path) =>
