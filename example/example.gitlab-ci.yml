@@ -1,0 +1,25 @@
+#
+# A gitlab-ci file to build web assets and deploy them
+# - there is a "build" script in the package.json
+# - the site gets build into _site (e.g. from eleventy)
+# - $DEPLOY_KEY and $DEPLOY_URL set in GitLab
+#
+
+build-and-deploy:
+  image:
+    name: node:12-alpine
+    entrypoint: ['']
+  only:
+    - master
+  script:
+    - apk add --no-cache -q curl
+    - npm ci
+    - npm run build
+    - >
+      tar -czv -C _site . \
+        | curl \
+          --silent \
+          --header "Content-Type: application/gzip" \
+          --header "Authorization: Bearer $DEPLOY_KEY" \
+          --data-raw @- \
+          $DEPLOY_URL
