@@ -1,3 +1,6 @@
+# note:
+# change "workdir:" to "./workdir:" to bind locally and inspect the contents
+
 version: '2'
 
 volumes:
@@ -10,14 +13,14 @@ services:
       - 8080:80
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./workdir:/usr/share/nginx/html
+      - workdir:/usr/share/nginx/html
 
   unpacker:
     image: test
     ports:
       - 3000:3000
     volumes:
-      - ./workdir:/app/workdir
+      - workdir:/app/workdir
     environment:
       SECRET_KEY: top_secret
       DEBUG: unpacker*
