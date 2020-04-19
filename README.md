@@ -230,6 +230,7 @@ git push --tags
 - Setup [commit-ops](https://blog.r0b.io/post/automating-developer-operations-for-nodejs/) when 1.0.0 is reached
 - Add unit tests
 - Add a GitHub actions example
+- Add a regex to only delete hex folders in the volume and/or add a prefix
 
 ---
 
