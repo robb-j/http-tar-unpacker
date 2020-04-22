@@ -107,14 +107,17 @@ function hash(buffer) {
     app.post('/', authMiddleware, async (req, res, next) => {
       debug(`post: /`)
 
-      try {
-        //
-        // Lock the processing
-        //
-        debug(`isProcessing=${isProcessing}`)
-        if (isProcessing) throw new Error('Already in progress')
-        isProcessing = true
+      //
+      // Lock the processing
+      //
+      debug(`isProcessing=${isProcessing}`)
+      if (isProcessing) {
+        res.status(400).send({ message: 'Already in progress' })
+        return
+      }
+      isProcessing = true
 
+      try {
         //
         // Grab the archive buffer & generate paths and filenames
         //
