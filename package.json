@@ -1,7 +1,7 @@
 {
   "name": "@openlab/http-tar-unpacker",
   "description": "Unpack a tar from a http request",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "repository": "openlab/http-tar-unpacker",
   "author": "",
