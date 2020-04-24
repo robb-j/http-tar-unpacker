@@ -231,6 +231,7 @@ git push --tags
 - Add unit tests
 - Add a GitHub actions example
 - Add a regex to only delete hex folders in the volume and/or add a prefix
+- Add option to keep the archive around
 
 ---
 
