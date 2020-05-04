@@ -23,6 +23,7 @@ const {
   SECRET_KEY,
   INDEX_MESSAGE = 'Hello, world!',
   MAX_UPLOAD = '64mb',
+  KEEP_ARCHIVES = 'false',
 } = process.env
 
 //
@@ -150,8 +151,12 @@ function hash(buffer) {
           })
 
           // Remove the archive file
-          debug(`unlink archivePath=${archivePath}`)
-          await fse.unlink(archivePath)
+          if (KEEP_ARCHIVES !== 'true') {
+            debug(`removing archive`)
+            await fse.unlink(archivePath)
+          } else {
+            debug(`keeping because KEEP_ARCHVIES is set`)
+          }
         } else {
           debug(`extract skipped`)
         }

@@ -109,6 +109,9 @@ You run unpacker using the docker image, providing it with the pre-shared key an
 
 - `SECRET_KEY` - set this to a secret value that only your deployment script knows,
   this is used to authenticate requests.
+- `KEEP_ARCHIVES` - (optional) set to `true` to keep the uploaded archive as `archive.tar.gz` in each folder,
+  will be overidden if the tar itself already has a file with the same name.
+  It means you can easily re-download the version pre-archived.
 
 **volumes**
 
