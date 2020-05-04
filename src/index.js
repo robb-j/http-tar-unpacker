@@ -176,15 +176,16 @@ function hash(buffer) {
         // Remove any non-active folders
         //
         const contents = await fse.readdir(WORK_DIR)
-        const toKeep = ['current', hashName]
-        const toRemove = contents.filter((item) => !toKeep.includes(item))
+        const toKeep = new Set(['current', hashName])
+        const toRemove = contents.filter(
+          (item) => !toKeep.has(item) && item.match(/^[0-9a-f]{64}$/)
+        )
+
         debug(`contents=[${contents.join(',')}]`)
         debug(`toRemove=[${toRemove.join(',')}]`)
 
         await Promise.all(
-          toRemove.map((path) =>
-            fse.rmdir(join(WORK_DIR, path), { recursive: true })
-          )
+          toRemove.map((path) => fse.rmdir(join(WORK_DIR, path)))
         )
 
         debug('done message=ok')

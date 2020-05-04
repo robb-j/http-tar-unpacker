@@ -42,6 +42,7 @@ You have another container (link nginx) that mounts the same volume in
 and is setup to serve the content that is in `current` symlink.
 
 Once deployed, unpacker also cleans up its volume to remove any non-latest archives.
+It will only remove folders that are named with 64 hexadecimal characters (a-f & 0-9).
 
 > The symlink is to reduce the downtime when a build is happening
 > and means that it falls back to the previous "current" if something fails along the way.
