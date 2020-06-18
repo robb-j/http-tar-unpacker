@@ -1,11 +1,10 @@
 #
-# Ignore files from git source control
+# Files to ignore from git
 #
 
-node_modules
-coverage
 *.env
+node_modules
 .DS_Store
-
+coverage
 tmp
 output

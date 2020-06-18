@@ -1,11 +1,11 @@
 #
-# Ignore files from docker
+# Files to ignore from the docker daemon
 #
 
+.git
 node_modules
 coverage
-*.env
 .DS_Store
-
+*.env
 tmp
 output

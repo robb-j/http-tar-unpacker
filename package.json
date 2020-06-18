@@ -36,13 +36,14 @@
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
     "husky": "^4.2.5",
     "jest": "^26.0.1",
     "lint-staged": "^10.2.11",
-    "nodemon": "^2.0.4",
-    "prettier": "^2.0.5"
+    "nodemon": "^1.19.4",
+    "prettier": "^2.0.5",
+    "yorkie": "^2.0.0"
   },
   "prettier": {
     "semi": false,
@@ -57,7 +58,14 @@
     "*.{js,json,css,md,ts,tsx}": [
       "prettier --write",
       "git add"
+    ],
+    "*.{js,json,css,md}": [
+      "prettier --write",
+      "git add"
     ]
   },
-  "main": "src/index.js"
+  "main": "src/index.js",
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  }
 }
