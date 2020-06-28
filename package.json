@@ -38,7 +38,6 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "husky": "^4.2.5",
     "jest": "^26.0.1",
     "lint-staged": "^10.2.11",
     "nodemon": "^1.19.4",
@@ -48,11 +47,6 @@
   "prettier": {
     "semi": false,
     "singleQuote": true
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.{js,json,css,md,ts,tsx}": [
