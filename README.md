@@ -15,7 +15,7 @@ Designed for doing a jamstack yourself.
   - [Regular use](#regular-use)
   - [Irregular use](#irregular-use)
   - [Code formatting](#code-formatting)
-- [Deployment](#deployment)
+- [Releasing](#releasing)
   - [Building the image](#building-the-image)
 - [Future work](#future-work)
 
@@ -213,7 +213,7 @@ You can manually run the formatter with `npm run prettier` if you want.
 Prettier is slightly configured in [package.json#prettier](/package.json)
 and can ignore files using [.prettierignore](/.prettierignore).
 
-## Deployment
+## Releasing
 
 ### Building the image
 
